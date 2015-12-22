@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 l=1
 t=0.001
 pi=math.pi
-nmax=20000
+nmax=10000
 amax=11
 il=[]
 alpha=0.01
