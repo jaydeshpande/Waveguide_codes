@@ -3,6 +3,7 @@ import numpy as np
 import scipy as sc
 import math
 import pandas as pd
+import csv
 from scipy.integrate import quad
 from scipy.integrate import odeint
 import matplotlib.pyplot as mplt
@@ -83,7 +84,8 @@ for j in range(0,nmax):
 	x4.append([alpha,il[0]])
 	rad=t*il[0]
 	x5.append([alpha,rad])
-	alpha=alpha+0.005
+	with
+	alpha=alpha+0.001
 mplt.figure(3)
 mplt.subplot(211)
 mplt.plot([row[0] for row in x4], [row[1] for row in x4], 'k', linewidth=2.0)
@@ -94,3 +96,4 @@ mplt.plot([row[0] for row in x5], [row[1] for row in x5], 'k', linewidth=2.0)
 mplt.xlabel('Absorptivity \'t\' (m-1)')
 mplt.ylabel('Direct Radiative Power, \'IL0\' (W)')
 mplt.show()
+np.savetxt("analytical absorptivity.txt", x5, delimiter=",")
