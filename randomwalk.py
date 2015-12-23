@@ -1,16 +1,14 @@
 # random walk modeling for 1 D waveguide
 import numpy as np
-import scipy as sc
-from scipy import interpolate
 import math
 import matplotlib.pyplot as plt
 l=1
 t=0.001
 pi=math.pi
-nmax=10000
-amax=11
+nmax=50000
+amax=999
 il=[]
-alpha=0.01
+alpha=0.001
 for j in range (0,amax):
 	hits = []
 	il1 = []
@@ -35,13 +33,13 @@ for j in range (0,amax):
 				if loc>l:
 					il2.append([i,l])
 	ilavg=(l*1000./nmax)*(len(il1)+len(il2))/2
-	il.append([t,ilavg])
-	t=t+0.001
+	il.append([alpha,ilavg])
+	alpha=alpha+0.001
 	del il1[:]
 	del il2[:]
 plt.plot([row[0] for row in il], [row[1] for row in il], 'k', linewidth=2.0)
-plt.xlabel('Thickness (m)')
+plt.xlabel('Alpha')
 plt.ylabel('Direct Radiative Power, \'IL0\' (W)')
-plt.title('I vs L')
+plt.title('I vs alpha')
 plt.show()
-np.savetxt("thickness_data.txt", il, delimiter=",")
+np.savetxt("absorptivity_data.txt", il, delimiter=",")
