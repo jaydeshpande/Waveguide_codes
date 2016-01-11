@@ -77,14 +77,13 @@ x4=[]
 x5=[]
 t=0.005
 l=1
-nmax=10000
+nmax=20000
 alpha=0.001
 for j in range(0,nmax):
 	il=quad(integrand, 0, pi/2, args=(l,t,w,i0,alpha))
 	x4.append([alpha,il[0]])
 	rad=t*il[0]
 	x5.append([alpha,rad])
-	with
 	alpha=alpha+0.001
 mplt.figure(3)
 mplt.subplot(211)
