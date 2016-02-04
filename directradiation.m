@@ -1,17 +1,29 @@
 clc;
-clear all;
-close all;
 i0=1000;
-mdot=10;
+mdot=1;
 cp=950;
 eta=0.9;
 dT=50;
-energy=mdot*cp*dT/(eta);
-alpha = 1;
+for k=1:1:4
+energy=mdot*cp*dT/(10*eta);
+alpha = 0.05;
 f = @(theta,l) sin(theta).*(1-exp(-alpha*l./sin(theta)));
 q = @(l) integral(@(theta) f(theta, l),0, pi/2);
 dir = @(w,l) 2*w*i0*q(l)/(alpha*pi);
-findval = @(w) (energy - dir(w,1.4));
-wsolve = fsolve(findval, 0.8)
+op=zeros();
+i=1;
+for l=0.5:0.5:5
+    findval = @(w) (energy - dir(w,l));
+    wsolve = fsolve(findval, 1);
+    op(i,1) = l;
+    op(i,2) = wsolve;
+    i=i+1;
+end
+plot(op(:,1),op(:,2));
+sheet=k;
+dlmwrite('10guidesalpha0.05.csv',op,'-append');
+hold on;
+dT=dT+50;
+end
 % findval= @(l) (100*1000*50)-integral(@(theta) f(theta,l,0.005),0,pi/2);
 % tsolve= fsolve(findval,0.5)
