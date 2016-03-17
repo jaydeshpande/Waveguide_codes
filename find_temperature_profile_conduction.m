@@ -16,14 +16,14 @@ k = (h*l*l)/(t*m*m);
 % thank you! 
 Trbar = find_Tbar(Tr,input);
 if (Re<2000)
-Nu=find_nusselt_laminar(Re,Pr,D,l);
+Nu=find_nusselt_laminar(Re,Pr,D,l)*l/D;
 else
-Nu=find_nusselt_turbulent(Re,Pr);
+Nu=find_nusselt_turbulent(Re,Pr)*l/D;
 end
 tsnum=(1/(m*m))-((Nu/m)*Trbar*coth(m/2));
-tsden=1-(Nu*coth(m/2)/m);
+tsden=1-((Nu/m)*coth(m/2));
 Tsbar=tsnum/tsden;
-firstterm=(i0*l*l)*(1-((2/pi)*find_integral(alpha,l)))/(k*t);
+firstterm=(i0*l*l/(k*t))*(1-((2/pi)*find_integral(alpha,l)));
 x=0;
 for i=1:1:n
     xbar = x/l;
