@@ -18,4 +18,8 @@ clear all;
 %--------------------------------------------------------------------------
 input=initialize_input(); % get input values of all input variables
 T=find_temperature_profile_conduction_bc2(input);
-plot(T);
+T1=find_temperature_profile_conduction(input);
+%plot(T);
+%hold on;
+%plot(T1);
+%hold on;
