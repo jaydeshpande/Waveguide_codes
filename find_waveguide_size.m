@@ -13,5 +13,10 @@ Tinf = input(10);
 n = input(11);
 t = D;
 k = (h*l*l)/(t*m*m);
+Tmax=400;
 % thank you! 
-func = @(l,t) (1-sech((l/2)*sqrt(h/(k*t)))) - (h*(Tmax-Tinf)/(i0*(1-(2*find_integral(alpha,l)/pi))));
+source = find_integral(alpha,l);
+func = @(l,t) (1-sech((l/2)*sqrt(h/(k*t)))) - (h*(Tmax-Tinf)/(i0*(1-(2*source/pi))));
+func2 = @(t) func(5,t);
+l1=l;
+t1=fsolve(func2,0.005);
