@@ -20,7 +20,9 @@ Nu=find_nusselt_laminar(Re,Pr,D,l)*l/D;
 else
 Nu=find_nusselt_turbulent(Re,Pr)*l/D;
 end
-directrad=0.75*(i0/(pi*t))*find_integral(alpha,l);
+generator=(i0/t)*(1-((2/pi)*find_integral(alpha,l)));
+denominator=generator*l*l/k;
+directrad=(l*0.75*(i0/(pi*t))*find_integral(alpha,l))/(k*denominator);
 tsnum=(1/(m*m))-(directrad*coth(m/2)/m)-((Nu/m)*Trbar*coth(m/2));
 tsden=1-((Nu/m)*coth(m/2));
 Tsbar=tsnum/tsden;
