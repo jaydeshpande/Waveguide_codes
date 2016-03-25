@@ -9,7 +9,10 @@
 % First part of the code will be a few test runs to make sure the code
 % works and gives some standard outputs on the screen
 % Second - obtain temperature profile for insulated waveguide boundary
+% conditio, convection boundary condition, convection radiation boundary
 % condition
+% Third - find the waveguide sizes for given lengths and tmax -- helps in 
+% selecting waveguide material for a suitable tmax
 %--------------------------------------------------------------------------
 % clear workspace and previous data
 clc;
@@ -33,15 +36,26 @@ for i=1:1:6 % loop for direct radiation calcualations
 input=initialize_input(p(i)); % get input values of all input variables
 cr(i) = directradiation(input); % concentration ratio 
 end
+A=[p;cr];
 %}
 
+%{
 for i=1:1:6 % loop for temperature profiles 
     input=initialize_input(p(i));
     T(:,i)=find_temperature_profile_conduction(input);
     x=linspace(0,1,input(11))';
 end
 A=[x T]';
-%A=[p;cr];
+%}
+q = alpha;
+for j=1:1:6
+for i=1:1:6 % loop for waveguide size
+    input=initialize_input(p(i),q(j));
+    t(i)=waveguide_size_isolated(input);
+end
+plot(p,t);
+hold on;
+end
 % fname = '/Users/JD/Desktop/Research/Waveguide/Waveguide_codes/Results_Part V/Pr_T.txt';
 % fileID=fopen(fname,'w');
 % fprintf(fileID,'%6s %12s %12s %12s %12s %12s %12s\n','x',num2str(p(1)),num2str(p(2)),...
