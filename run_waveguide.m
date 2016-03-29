@@ -47,7 +47,7 @@ for i=1:1:6 % loop for temperature profiles
 end
 A=[x T]';
 %}
-q = linspace(0,5,20);
+q = linspace(0,1.5,20);
 for j=1:1:6
 for i=1:1:length(q) % loop for waveguide size
     input=initialize_input(p(j),q(i));
