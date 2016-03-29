@@ -1,6 +1,6 @@
-function [input]=initialize_input(l)
+function [input]=initialize_input(h,l)
 i0=1000;
-h=1.85;
+%h=1.85;
 k=1.11;
 %l=1;
 alpha=0.2;

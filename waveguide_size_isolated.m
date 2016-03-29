@@ -14,7 +14,7 @@ n = input(11);
 t = D;
 k = (h*l*l)/(t*m*m);
 % thank you! 
-Tmax=500;
+Tmax=373;
 %{
 firstterm=i0*l*l/(8*k*(Tmax-Tinf));
 secondterm=1-((2/pi)*find_integral(alpha,l));

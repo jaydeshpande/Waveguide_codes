@@ -30,7 +30,7 @@ Re = [500 1500 2500 3500 4500 5500]; % reynolds number
 Pr = [7.56 24.8 342 1656.81 2000 3000]; % prandtl numbers for water @ 17, salt @  200, paratherm @ 25, therminol 66 @20
 %--------------------------------------------------------------------------
 % Assign the variable which needs to be treated as parameter 'p'
-p = l;
+p = [1 1.5 2 2.5 3 3.5];
 %{
 for i=1:1:6 % loop for direct radiation calcualations
 input=initialize_input(p(i)); % get input values of all input variables
@@ -47,13 +47,13 @@ for i=1:1:6 % loop for temperature profiles
 end
 A=[x T]';
 %}
-q = alpha;
+q = linspace(0,5,20);
 for j=1:1:6
-for i=1:1:6 % loop for waveguide size
-    input=initialize_input(p(i),q(j));
+for i=1:1:length(q) % loop for waveguide size
+    input=initialize_input(p(j),q(i));
     t(i)=waveguide_size_isolated(input);
 end
-plot(p,t);
+plot(q,t);
 hold on;
 end
 % fname = '/Users/JD/Desktop/Research/Waveguide/Waveguide_codes/Results_Part V/Pr_T.txt';
