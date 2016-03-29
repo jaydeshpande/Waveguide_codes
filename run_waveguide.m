@@ -30,7 +30,7 @@ Re = [500 1500 2500 3500 4500 5500]; % reynolds number
 Pr = [7.56 24.8 342 1656.81 2000 3000]; % prandtl numbers for water @ 17, salt @  200, paratherm @ 25, therminol 66 @20
 %--------------------------------------------------------------------------
 % Assign the variable which needs to be treated as parameter 'p'
-p = [1 1.5 2 2.5 3 3.5];
+ 
 %{
 for i=1:1:6 % loop for direct radiation calcualations
 input=initialize_input(p(i)); % get input values of all input variables
@@ -47,18 +47,38 @@ for i=1:1:6 % loop for temperature profiles
 end
 A=[x T]';
 %}
-q = linspace(0,1.5,20);
-for j=1:1:6
+% this part only appears for waveguide sizing
+lmax=1.5; % maximum length of waveguide to be evalulated 
+p = [0.5 0.8 1.1 1.4 1.7 2]; % low heat transfer coefficient values
+q = linspace(0,lmax,20); % to make the curves smooth we need more points 
+for j=1:1:length(p)
 for i=1:1:length(q) % loop for waveguide size
     input=initialize_input(p(j),q(i));
-    t(i)=waveguide_size_isolated(input);
+    t(i,j)=waveguide_size_isolated(input);
 end
-plot(q,t);
-hold on;
+% plot(q,t);
+% hold on;
 end
-% fname = '/Users/JD/Desktop/Research/Waveguide/Waveguide_codes/Results_Part V/Pr_T.txt';
+A=[q' t];
+A=real(A);
+A(1,:)=[];
+A=A';
+%axis([0.5 lmax 0.01 0.2]);
+fname = 'C:\Users\AMTLUser2\Desktop\Waveguide\Waveguide_codes\sizing/tvsl_acrylic.txt';
+fileID=fopen(fname,'w');
+fprintf(fileID,'%6s %6s %6s %6s %6s %6s %6s\n','x',num2str(p(1)),num2str(p(2)),...
+    num2str(p(3)),num2str(p(4)),num2str(p(5)),num2str(p(6)));
+fprintf(fileID,'%6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f\n',A);
+fclose('all');
+%--------------------------------------------------------------------------
+%                          Sample Code for Data Writing
+%{ % writing temperature profile data
+% fname = '<DIR>/TEMPERATUREPROFILENAME.txt'; % replace DIR with folder DIR
 % fileID=fopen(fname,'w');
 % fprintf(fileID,'%6s %12s %12s %12s %12s %12s %12s\n','x',num2str(p(1)),num2str(p(2)),...
-%     num2str(p(3)),num2str(p(4)),num2str(p(5)),num2str(p(6)));
+%     num2str(p(3)),num2str(p(4)),num2str(p(5)),num2str(p(6))); % writes
+%     headers for parameter values
 % fprintf(fileID,'%6.3f %12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n',A);
 % fclose('all');
+%--------------------------------------------------------------------------
+%}
