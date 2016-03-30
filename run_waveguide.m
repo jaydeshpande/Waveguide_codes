@@ -33,8 +33,10 @@ Nu = [5 30 80 155 255 380]; % Nusselt number for specified nusselt number condit
                      % Solve for Direct Radiation %
 %--------------------------------------------------------------------------                     
 %{
+p = [0.01 0.015 0.02 0.025 0.03 1]; % values obtained from sizing curve fit
+q = [0.3032 0.3055 0.3078 0.3078 0.31 1]; % values obtained from sizing curve fit
 for i=1:1:6 % loop for direct radiation calcualations
-input=initialize_input(p(i)); % get input values of all input variables
+input=initialize_input(p(i),q(i)); % get input values of all input variables
 cr(i) = directradiation(input); % concentration ratio 
 end
 A=[p;cr];
@@ -44,14 +46,23 @@ A=[p;cr];
 %--------------------------------------------------------------------------
 %{
 % Assign the variable which needs to be treated as parameter 'p'
-p = Nu;
+p = [0.01 0.015 0.02 0.025 0.03 1]; % values obtained from sizing curve fit
+q = [0.3709 0.3984 0.4255 0.4523 0.4787 1]; % values obtained from sizing
+curve fit
 for i=1:1:6 % loop for temperature profiles 
-    input=initialize_input();
-    T(:,i)=find_temperature_profile_conduction(input,Nu(i));
+    input=initialize_input(p(i),q(i));
+    T(:,i)=find_temperature_profile_conduction(input);
     x=linspace(0,1,input(11))';
 end
 A=[x T]';
 plot(T);
+fname = 'C:\Users\AMTLUser2\Desktop\Waveguide\Waveguide_codes\Acrylic Data\convection_temp_bk7.txt'; % replace DIR with folder DIR
+fileID=fopen(fname,'w');
+fprintf(fileID,'%6s %12s %12s %12s %12s %12s %12s\n','x',num2str(p(1)),num2str(p(2)),...
+    num2str(p(3)),num2str(p(4)),num2str(p(5)),num2str(p(6))); % writes
+    %headers for parameter values
+fprintf(fileID,'%6.3f %12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n',A);
+fclose('all');
 %}
 %--------------------------------------------------------------------------
                      % Solve for Waveguide Size %
