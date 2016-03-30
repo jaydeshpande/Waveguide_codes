@@ -1,4 +1,4 @@
-function [T]=find_temperature_profile_conduction(input)
+function [T]=find_temperature_profile_conduction(input,Nu)
 % give me all input values please
 i0 = input(1);
 h = input(2);
@@ -15,11 +15,16 @@ t = D;
 k = (h*l*l)/(t*m*m);
 % thank you! 
 Trbar = find_Tbar(Tr,input);
+%{
+% Calculate Nusselt number only for explicit analysis of materials
+% Otherwise get Nusselt number as an input argument
 if (Re<2000)
 Nu=find_nusselt_laminar(Re,Pr,D,l)*l/D;
 else
 Nu=find_nusselt_turbulent(Re,Pr)*l/D;
 end
+%}
+Nu=Nu*l/D;
 tsnum=(1/(m*m))-((Nu/m)*Trbar*coth(m/2));
 tsden=1-((Nu/m)*coth(m/2));
 Tsbar=tsnum/tsden;
