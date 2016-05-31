@@ -32,7 +32,8 @@ Nu = [5 30 80 155 255 380]; % Nusselt number for specified nusselt number condit
 %--------------------------------------------------------------------------
                      % Solve for Direct Radiation %
 %--------------------------------------------------------------------------                     
-al=linspace(0.01,50,101);
+%{
+al=linspace(0,50,201);
 gc=[5 10 50 100 500 1000];
 for j=1:1:length(gc)
 for i=1:1:length(al) % loop for direct radiation calcualations
@@ -50,15 +51,13 @@ fprintf(fileID,'%12s %12s %12s %12s %12s %12s %12s\n','x',num2str(gc(1)),num2str
 fprintf(fileID,'%12.8f %12.8f %12.8f %12.8f %12.8f %12.8f %12.8f \n',A);
 fclose('all');
 %--------------------------------------------------------------------------
-
+%}
 %--------------------------------------------------------------------------
                      % Solve for Temperature Profiles %
 %--------------------------------------------------------------------------
-%{
+
 % Assign the variable which needs to be treated as parameter 'p'
-p = [0.01 0.015 0.02 0.025 0.03 1]; % values obtained from sizing curve fit
-q = [0.3709 0.3984 0.4255 0.4523 0.4787 1]; % values obtained from sizing
-curve fit
+m=linspace(0,550,501);
 for i=1:1:6 % loop for temperature profiles 
     input=initialize_input(p(i),q(i));
     T(:,i)=find_temperature_profile_conduction(input);
@@ -73,7 +72,7 @@ fprintf(fileID,'%6s %12s %12s %12s %12s %12s %12s\n','x',num2str(p(1)),num2str(p
     %headers for parameter values
 fprintf(fileID,'%6.3f %12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n',A);
 fclose('all');
-%}
+
 %--------------------------------------------------------------------------
                      % Solve for Waveguide Size %
 %--------------------------------------------------------------------------
