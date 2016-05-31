@@ -32,14 +32,24 @@ Nu = [5 30 80 155 255 380]; % Nusselt number for specified nusselt number condit
 %--------------------------------------------------------------------------
                      % Solve for Direct Radiation %
 %--------------------------------------------------------------------------                     
-
-p = [0.01 0.015 0.02 0.025 0.03 1]; % values obtained from sizing curve fit
-q = [0.3032 0.3055 0.3078 0.3078 0.31 1]; % values obtained from sizing curve fit
-for i=1:1:6 % loop for direct radiation calcualations
-input=initialize_input(p(i),q(i)); % get input values of all input variables
-cr(i) = directradiation(input); % concentration ratio 
+al=linspace(0.01,50,101);
+gc=[5 10 50 100 500 1000];
+for j=1:1:length(gc)
+for i=1:1:length(al) % loop for direct radiation calcualations
+input=initialize_input(al(i),gc(j)); % get input values of all input variables
+cr(j,i) = directradiation(input); % concentration ratio 
 end
-A=[p;cr];
+end
+A=[al;cr];
+
+ 
+%writing temperature profile data
+fname = 'C:\Users\AMTLUser2\Desktop\Jaydeep\Waveguide\Waveguide_codes\Non-dimensional Analysis\Non-dimensional results/effect of al.txt'; % replace DIR with folder DIR
+fileID=fopen(fname,'w');
+fprintf(fileID,'%12s %12s %12s %12s %12s %12s %12s\n','x',num2str(gc(1)),num2str(gc(2)),num2str(gc(3)),num2str(gc(4)),num2str(gc(5)),num2str(gc(6))); % writes headers for parameter values
+fprintf(fileID,'%12.8f %12.8f %12.8f %12.8f %12.8f %12.8f %12.8f \n',A);
+fclose('all');
+%--------------------------------------------------------------------------
 
 %--------------------------------------------------------------------------
                      % Solve for Temperature Profiles %
