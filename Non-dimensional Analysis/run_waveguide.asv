@@ -58,16 +58,15 @@ fclose('all');
 
 % Assign the variable which needs to be treated as parameter 'p'
 Bi=linspace(0,75,101);
-al=linspace(0,50,201);
 gc=[5 10 50 100 500 1000];
 for j=1:1:length(gc)
-for i=1:1:length(al)
-    input=initialize_input(al(i),gc(j));
-    T(j,i)=find_temperature_profile_conduction_bc2(input);
+for i=1:1:length(Bi)
+    input=initialize_input(Bi(i),gc(j));
+    T(j,i)=find_temperature_profile_conduction(input);
 end
 end
-A=[al;T];
-fname = 'C:\Users\AMTLUser2\Desktop\Jaydeep\Waveguide\Waveguide_codes\Non-dimensional Analysis\Non-dimensional results\Tmax_Conduction_al.txt'; % replace DIR with folder DIR
+A=[Bi;T];
+fname = 'C:\Users\AMTLUser2\Desktop\Jaydeep\Waveguide\Waveguide_codes\Non-dimensional Analysis\Non-dimensional results\Tmax_Conduction.txt'; % replace DIR with folder DIR
 fileID=fopen(fname,'w');
 fprintf(fileID,'%6s %12s %12s %12s %12s %12s %12s\n','x',num2str(gc(1)),num2str(gc(2)),...
     num2str(gc(3)),num2str(gc(4)),num2str(gc(5)),num2str(gc(6))); % writes

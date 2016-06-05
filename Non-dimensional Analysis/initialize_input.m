@@ -1,9 +1,10 @@
 function [input]=initialize_input(al,gc)
 i0=1000;
-%al=5; %product of alpha and l
-Nu=500; %nusselt number equivalent for hL/k ratio for properties of waveguide
+%al=0.1; %product of alpha and l (alpha = 0.2, L = 0.5)
+%Nu=500; %nusselt number equivalent for hL/k ratio for properties of waveguide
 %gc=250; %geometric concentration ratio - ratio of L to t
-m=sqrt(Nu*gc);
+Bi=1.3514;
+m=sqrt(Bi*gc);
 n=201;
 Re=1000;
 Pr=7.56; % for water at 17 degree C

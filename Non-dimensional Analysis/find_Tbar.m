@@ -1,21 +1,17 @@
 function [Tbar]=find_Tbar(Tin,input)
 % give me all input values please
 i0 = input(1);
-h = input(2);
-l = input(3);
-m = input(4);
-alpha = input(5);
-Re = input(6);
-Pr = input(7);
-D = input(8);
-Tr = input(9);
-Tinf = input(10);
-n = input(11);
-t = D;
-k = (h*l*l)/(t*m*m);
+al = input(2);
+m = input(3);
+Re = input(4);
+Pr = input(5);
+Tr = input(6);
+Tinf = input(7);
+n = input(8);
+gc = input(9);
 % thank you! 
+%let h = 3;
 numerator=Tin-Tinf;
-generator=(i0/t)*(1-((2/pi)*find_integral(alpha,l)));
-denominator=generator*l*l/k;
+denominator=(i0*m*m/3)*(1-((2/pi)*find_integral(al)));
 Tbar=numerator/denominator;
 end
