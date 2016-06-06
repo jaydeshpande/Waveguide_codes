@@ -10,5 +10,8 @@ Tinf = input(7);
 n = input(8);
 gc = input(9);
 % thank you! 
-T=(1/(m*m))*(1-(1/(cosh(m/2))));
+xbar=linspace(0,1,n);
+for i=1:1:n
+T(i)=(1/(m*m))*(1-(cosh(m*(xbar(i)-0.5))/(cosh(m/2))));
+end
 end

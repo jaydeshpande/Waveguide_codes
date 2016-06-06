@@ -57,21 +57,22 @@ fclose('all');
 %--------------------------------------------------------------------------
 
 % Assign the variable which needs to be treated as parameter 'p'
-Bi=linspace(0,75,101);
+%Bi=[0.5 1 10 25 40 60];
+Bi=linspace(0,75,201);
 al=linspace(0,50,201);
 gc=[5 10 50 100 500 1000];
-for j=1:1:length(gc)
-for i=1:1:length(al)
-    input=initialize_input(al(i),gc(j));
-    T(j,i)=find_temperature_profile_conduction_bc2(input);
+for i=1:1:length(gc)
+    for j=1:1:length(Bi)
+    input=initialize_input(Bi(j),gc(i));
+    T(j,i)=find_temperature_profile_conduction(input);
+    end
 end
-end
-A=[al;T];
-fname = 'C:\Users\AMTLUser2\Desktop\Jaydeep\Waveguide\Waveguide_codes\Non-dimensional Analysis\Non-dimensional results\Tmax_Conduction_al.txt'; % replace DIR with folder DIR
+% xbar=linspace(0,1,201);
+A=[Bi' T]';
+fname = '/Users/JD/Desktop/Research/Waveguide/Waveguide_codes/Non-dimensional Analysis/Non-dimensional results/Tmax_Convection.txt'; % replace DIR with folder DIR
 fileID=fopen(fname,'w');
 fprintf(fileID,'%6s %12s %12s %12s %12s %12s %12s\n','x',num2str(gc(1)),num2str(gc(2)),...
-    num2str(gc(3)),num2str(gc(4)),num2str(gc(5)),num2str(gc(6))); % writes
-    %headers for parameter values
+    num2str(gc(3)),num2str(gc(4)),num2str(gc(5)),num2str(gc(6))); % write headers for parameter values
 fprintf(fileID,'%6.3f %12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n',A);
 fclose('all');
 

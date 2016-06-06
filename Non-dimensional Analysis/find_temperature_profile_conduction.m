@@ -25,4 +25,8 @@ end
 tsnum=(1/(m*m))-((Nu/m)*Trbar*coth(m/2));
 tsden=1-((Nu/m)*coth(m/2));
 Tsbar=tsnum/tsden;
-T=((Nu/m)*(Tsbar)*(1-(1/(sinh(m/2)))))+(1/(m*m));
+xbar=0.5;
+
+T=((Nu/m)*(Tsbar)*((cosh(m*(xbar-0.5))/(sinh(m/2)))))+(1/(m*m));
+
+end

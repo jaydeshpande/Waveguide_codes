@@ -1,9 +1,9 @@
-function [input]=initialize_input(al,gc)
+function [input]=initialize_input(Bi,gc)
 i0=1000;
-%al=0.1; %product of alpha and l (alpha = 0.2, L = 0.5)
+al=0.1; %product of alpha and l (alpha = 0.2, L = 0.5)
 %Nu=500; %nusselt number equivalent for hL/k ratio for properties of waveguide
 %gc=250; %geometric concentration ratio - ratio of L to t
-Bi=1.3514;
+%Bi=1.3514;
 m=sqrt(Bi*gc);
 n=201;
 Re=1000;
